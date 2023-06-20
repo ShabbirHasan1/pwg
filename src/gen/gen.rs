@@ -17,12 +17,12 @@ use super::Charset;
 /// ## Generate a 16-character password
 ///
 /// ```rust
-/// use pwg::gen;
+/// use pwg::gen::generate_password;
 ///
-/// let password = gen::password(16, &gen::DEFAULT_CHARSET);
+/// let password = generate_password(16, &gen::DEFAULT_CHARSET);
 /// println!("{}", password);
 /// ```
-pub fn password(length: usize, charset: &Charset) -> String {
+pub fn generate_password(length: usize, charset: &Charset) -> String {
     let mut rng = ChaCha12Rng::seed_from_u64(
         SystemTime::now()
             .duration_since(UNIX_EPOCH)

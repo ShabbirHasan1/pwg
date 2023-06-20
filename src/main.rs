@@ -2,7 +2,7 @@ use clap::Parser;
 use log::LevelFilter;
 
 use crate::args::Args;
-use crate::gen::{password, Charset, DEFAULT_CHARSET};
+use crate::gen::{generate_password, Charset, DEFAULT_CHARSET};
 
 mod args;
 mod gen;
@@ -22,8 +22,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!(
             "{}",
             match args.charset {
-                Some(charset) => password(args.length, &Charset::from(&charset)),
-                None => password(args.length, &DEFAULT_CHARSET),
+                Some(charset) => generate_password(args.length, &Charset::from(&charset)),
+                None => generate_password(args.length, &DEFAULT_CHARSET),
             }
         )
     }

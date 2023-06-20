@@ -28,7 +28,7 @@ use axum::{extract::Query, routing::get, Router};
 use log::info;
 use serde::Deserialize;
 
-use crate::gen::{password, Charset, DEFAULT_CHARSET};
+use crate::gen::{generate_password, Charset, DEFAULT_CHARSET};
 
 /// The query parameters for the `GET /` endpoint.
 #[derive(Deserialize, Debug)]
@@ -38,13 +38,13 @@ struct GeneratePasswordQuery {
 }
 
 /// Generate a password.
-async fn generate_password(Query(params): Query<GeneratePasswordQuery>) -> String {
+async fn generate_password_route(Query(params): Query<GeneratePasswordQuery>) -> String {
     let start_time = Instant::now();
 
     let length = params.length.unwrap_or(16);
     let password = match &params.charset {
-        Some(charset) => password(length, &Charset::from(charset)),
-        None => password(length, &DEFAULT_CHARSET),
+        Some(charset) => generate_password(length, &Charset::from(charset)),
+        None => generate_password(length, &DEFAULT_CHARSET),
     };
 
     info!(
@@ -58,7 +58,7 @@ async fn generate_password(Query(params): Query<GeneratePasswordQuery>) -> Strin
 
 /// Start the HTTP server.
 pub async fn start(port: u16) -> Result<(), Box<dyn std::error::Error>> {
-    let router = Router::new().route("/", get(generate_password));
+    let router = Router::new().route("/", get(generate_password_route));
 
     info!("Starting HTTP server on http://127.0.0.1:{}", port);
 

@@ -8,19 +8,19 @@
 //! ### Generate a password
 //!
 //! ```rust
-//! use pwg::gen;
+//! use pwg::gen::{generate_password, DEFAULT_CHARSET};
 //!
-//! let password = gen::password(16, &gen::DEFAULT_CHARSET);
+//! let password = generate_password(16, &DEFAULT_CHARSET);
 //! println!("{}", password);
 //! ```
 //!
 //! ### Generate a password with a custom charset
 //!
 //! ```rust
-//! use pwg::gen;
+//! use pwg::gen::{generate_password, Charset};
 //!
-//! let charset = gen::Charset::from("0123456789abcdef");
-//! let password = gen::password(16, &charset);
+//! let charset = Charset::from("0123456789abcdef");
+//! let password = generate_password(16, &charset);
 //! println!("{}", password);
 //! ```
 //!
@@ -72,7 +72,7 @@
 //! We try to balance security and performance, so we have enabled the `simd` feature by default.
 
 pub use charset::{Charset, DEFAULT_CHARSET};
-pub use gen::password;
+pub use gen::generate_password;
 
 mod charset;
 mod gen;
