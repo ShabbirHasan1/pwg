@@ -1,6 +1,6 @@
-//! # The password generator
+//! # A password generator
 //!
-//! This module contains the password generator. It is a collection of highly customizable functions
+//! This module contains a password generator. It is a collection of highly customizable functions
 //! that may be used to generate passwords.
 //!
 //! ## Examples
@@ -8,7 +8,7 @@
 //! ### Generate a password
 //!
 //! ```rust
-//! use pwg::{generate_password, DEFAULT_CHARSET};
+//! use pwg::gen::{generate_password, DEFAULT_CHARSET};
 //!
 //! let password = generate_password(16, &DEFAULT_CHARSET);
 //! println!("{}", password);
@@ -17,7 +17,7 @@
 //! ### Generate a password with a custom charset
 //!
 //! ```rust
-//! use pwg::{generate_password, Charset};
+//! use pwg::gen::{generate_password, Charset};
 //!
 //! let charset = Charset::from("0123456789abcdef");
 //! let password = generate_password(16, &charset);
@@ -71,8 +71,9 @@
 //!
 //! We try to balance security and performance, so we have enabled the `simd` feature by default.
 
-pub use charset::{Charset, DEFAULT_CHARSET};
-pub use gen::generate_password;
+// 👆 Slightly modified docs from gen/mod.rs
 
-mod charset;
-mod gen;
+pub use gen::{generate_password, Charset, DEFAULT_CHARSET};
+
+pub mod gen;
+pub mod http;

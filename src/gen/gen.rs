@@ -17,7 +17,7 @@ use super::Charset;
 /// ## Generate a 16-character password
 ///
 /// ```rust
-/// use pwg::gen::generate_password;
+/// use pwg::generate_password;
 ///
 /// let password = generate_password(16, &gen::DEFAULT_CHARSET);
 /// println!("{}", password);

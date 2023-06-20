@@ -2,11 +2,11 @@ use clap::Parser;
 use log::LevelFilter;
 
 use crate::args::Args;
-use crate::gen::{generate_password, Charset, DEFAULT_CHARSET};
+
+use pwg::http;
+use pwg::{generate_password, Charset, DEFAULT_CHARSET};
 
 mod args;
-mod gen;
-mod http;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

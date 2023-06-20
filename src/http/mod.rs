@@ -28,7 +28,7 @@ use axum::{extract::Query, routing::get, Router};
 use log::info;
 use serde::Deserialize;
 
-use crate::gen::{generate_password, Charset, DEFAULT_CHARSET};
+use crate::{generate_password, Charset, DEFAULT_CHARSET};
 
 /// The query parameters for the `GET /` endpoint.
 #[derive(Deserialize, Debug)]
