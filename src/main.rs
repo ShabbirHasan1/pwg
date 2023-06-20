@@ -1,3 +1,8 @@
+use gen::password;
+
+mod gen;
+
 fn main() {
-    println!("Hello, world!");
+    let pwd = password(16, &gen::DEFAULT_CHARSET);
+    println!("{}", pwd);
 }
