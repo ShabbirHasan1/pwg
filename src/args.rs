@@ -17,4 +17,9 @@ pub struct Args {
     /// The length of the password.
     #[arg(short, long, default_value = "16")]
     pub length: usize,
+    /// The charset to use.
+    ///
+    /// `DEFAULT_CHARSET` is used if this is `None`.
+    #[arg(short, long)]
+    pub charset: Option<String>,
 }

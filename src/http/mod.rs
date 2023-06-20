@@ -28,12 +28,13 @@ use axum::{extract::Query, routing::get, Router};
 use log::info;
 use serde::Deserialize;
 
-use crate::gen::{password, DEFAULT_CHARSET};
+use crate::gen::{password, Charset, DEFAULT_CHARSET};
 
 /// The query parameters for the `GET /` endpoint.
 #[derive(Deserialize, Debug)]
 struct GeneratePasswordQuery {
     length: Option<usize>,
+    charset: Option<String>,
 }
 
 /// Generate a password.
@@ -41,7 +42,10 @@ async fn generate_password(Query(params): Query<GeneratePasswordQuery>) -> Strin
     let start_time = Instant::now();
 
     let length = params.length.unwrap_or(16);
-    let password = password(length, &DEFAULT_CHARSET);
+    let password = match &params.charset {
+        Some(charset) => password(length, &Charset::from(charset)),
+        None => password(length, &DEFAULT_CHARSET),
+    };
 
     info!(
         "Processed {:?} in {}ms",

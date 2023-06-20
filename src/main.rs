@@ -2,6 +2,7 @@ use clap::Parser;
 use log::LevelFilter;
 
 use crate::args::Args;
+use crate::gen::{password, Charset, DEFAULT_CHARSET};
 
 mod args;
 mod gen;
@@ -18,7 +19,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if args.http {
         http::start(args.port).await?;
     } else {
-        println!("{}", gen::password(args.length, &gen::DEFAULT_CHARSET));
+        println!(
+            "{}",
+            match args.charset {
+                Some(charset) => password(args.length, &Charset::from(&charset)),
+                None => password(args.length, &DEFAULT_CHARSET),
+            }
+        )
     }
 
     Ok(())
